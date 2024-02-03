@@ -58,5 +58,21 @@ public class Administrador {
             System.out.println("No hay archivos registrados aún...");
         }
     }
+    
+    //PENDIENTEEEE.....................
+    public int buscar(int llave){
+        if (hayArchivos) {
+            System.out.printf("%-5s %-12s %-30s %-10s %-30s %-10s%n", "ID", "TIPO", "NOMBRE", "TAMANO", "PATH", "LENGUAJE");
+            for (int i = 0; i < contArchivos; i++) {
+                System.out.printf("%-5s %-12s %-30s %-10s %-30s %-10s%n",
+                        almacen[i].getLlave(), almacen[i].getTipoContenido(), almacen[i].getNombre(),
+                        almacen[i].getSize(), almacen[i].getPath(), almacen[i].getLenguaje());
+            }
+        } else {
+            System.out.println("No hay archivos registrados aún...");
+        }
+        
+        return llave;
+    }
 
 }
