@@ -19,5 +19,11 @@ public class Administrador {
         System.out.println("Edad de la segunda persona: " + almacen[1].getNombre());
         System.out.println("Nombre de la primera persona: " + almacen[2].getLenguaje());
     }
+    
+    public void leerArchivosEnOrden(){
+        for (int i=0; i<3; i++){
+            System.out.println("Nombre de la primera persona: " + almacen[i].getTipoContenido());
+        }
+    }
 
 }
