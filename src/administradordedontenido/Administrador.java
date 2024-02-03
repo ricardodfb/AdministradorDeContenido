@@ -4,7 +4,7 @@ import java.util.*;
 public class Administrador {
     private Archivo[] almacen;
     boolean hayArchivos = false;
-    int contArchivos = 0;
+    int contArchivos = 1;
     Scanner sc = new Scanner(System.in);
 
     public Administrador() {
@@ -21,7 +21,7 @@ public class Administrador {
     
     public void registrarArchivo(){
         hayArchivos = true;
-        System.out.println("Ingresa 1 si el archivo es de programación.");
+        System.out.println("Ingresa 1 si el archivo es de programacion.");
         System.out.println("Ingresa cualquier otro numero si no aplica.");
         int progra = sc.nextInt();
         sc.nextLine(); // Consumir el salto de línea pendiente
@@ -64,9 +64,11 @@ public class Administrador {
         if (hayArchivos) {
             System.out.printf("%-5s %-12s %-30s %-10s %-30s %-10s%n", "ID", "TIPO", "NOMBRE", "TAMANO", "PATH", "LENGUAJE");
             for (int i = 0; i < contArchivos; i++) {
-                System.out.printf("%-5s %-12s %-30s %-10s %-30s %-10s%n",
+                if(almacen[i].getLlave() == llave){
+                    System.out.printf("%-5s %-12s %-30s %-10s %-30s %-10s%n",
                         almacen[i].getLlave(), almacen[i].getTipoContenido(), almacen[i].getNombre(),
                         almacen[i].getSize(), almacen[i].getPath(), almacen[i].getLenguaje());
+                }
             }
         } else {
             System.out.println("No hay archivos registrados aún...");
