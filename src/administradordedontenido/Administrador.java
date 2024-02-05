@@ -6,10 +6,14 @@ public class Administrador {
     boolean hayArchivos = false;
     int contArchivos = 1;
     Scanner sc = new Scanner(System.in);
+    
 
     public Administrador() {
         
         almacen = new Archivo[10];
+        for (int i = 0; i < almacen.length; i++) {
+        almacen[i] = new Archivo("", "", 0, "", "", 0);
+    }
     }
     
     public void registrarArchivoX(){
@@ -50,14 +54,21 @@ public class Administrador {
         if (hayArchivos) {
             System.out.printf("%-5s %-12s %-30s %-10s %-30s %-10s%n", "ID", "TIPO", "NOMBRE", "TAMANO", "PATH", "LENGUAJE");
             for (int i = 0; i < contArchivos; i++) {
-                System.out.printf("%-5s %-12s %-30s %-10s %-30s %-10s%n",
-                        almacen[i].getLlave(), almacen[i].getTipoContenido(), almacen[i].getNombre(),
-                        almacen[i].getSize(), almacen[i].getPath(), almacen[i].getLenguaje());
+                // Verificar si el archivo tiene información antes de imprimir
+                if (!almacen[i].getTipoContenido().isEmpty() &&
+                    !almacen[i].getNombre().isEmpty() &&
+                    almacen[i].getSize() > 0 &&
+                    !almacen[i].getPath().isEmpty()) {
+                    System.out.printf("%-5s %-12s %-30s %-10s %-30s %-10s%n",
+                            almacen[i].getLlave(), almacen[i].getTipoContenido(), almacen[i].getNombre(),
+                            almacen[i].getSize(), almacen[i].getPath(), almacen[i].getLenguaje());
+                }
             }
         } else {
             System.out.println("No hay archivos registrados aún...");
         }
     }
+
     
     //PENDIENTEEEE.....................
     public int buscar(int llave){
@@ -75,6 +86,91 @@ public class Administrador {
         }
         
         return llave;
+    }
+    
+    public void eliminarArchivo(int indice) {
+        if (hayArchivos && indice >= 0 && indice < contArchivos) {
+            // Desplazar los elementos del array para eliminar el archivo
+            for (int i = indice; i < contArchivos - 1; i++) {
+                almacen[i] = almacen[i + 1];
+            }
+
+            // Asignar null al último elemento para evitar duplicación
+            almacen[contArchivos - 1] = null;
+
+            // Decrementar el contador de archivos
+            contArchivos--;
+
+            System.out.println("Archivo eliminado correctamente.");
+        } else {
+            System.out.println("No se puede eliminar el archivo. Índice no válido.");
+        }
+    }
+    
+    public void modificarArchivo(int llave) {
+        if (hayArchivos) {
+            boolean encontrado = false;
+            for (int i = 0; i < contArchivos; i++) {
+                if (almacen[i].getLlave() == llave) {
+                    encontrado = true;
+                    System.out.println("Archivo encontrado. ¿Qué datos deseas modificar?");
+                    System.out.println("1. Tipo de Contenido");
+                    System.out.println("2. Nombre");
+                    System.out.println("3. Tamaño");
+                    System.out.println("4. Path");
+                    System.out.println("5. Lenguaje (solo para archivos de programación)");
+                    System.out.print("Selecciona una opción: ");
+                    Scanner sc = new Scanner(System.in);
+                    int opcion = sc.nextInt();
+                    sc.nextLine(); // Consumir el salto de línea pendiente
+
+                    switch (opcion) {
+                        case 1:
+                            System.out.print("Nuevo Tipo de Contenido: ");
+                            String nuevoTipo = sc.nextLine();
+                            almacen[i].setTipoContenido(nuevoTipo);
+                            break;
+                        case 2:
+                            System.out.print("Nuevo Nombre: ");
+                            String nuevoNombre = sc.nextLine();
+                            almacen[i].setNombre(nuevoNombre);
+                            break;
+                        case 3:
+                            System.out.print("Nuevo Tamaño: ");
+                            int nuevoTamano = sc.nextInt();
+                            almacen[i].setSize(nuevoTamano);
+                            sc.nextLine(); // Consumir el salto de línea pendiente
+                            break;
+                        case 4:
+                            System.out.print("Nuevo Path: ");
+                            String nuevoPath = sc.nextLine();
+                            almacen[i].setPath(nuevoPath);
+                            break;
+                        case 5:
+                            if (!almacen[i].getLenguaje().equals("n/a")) {
+                                System.out.print("Nuevo Lenguaje: ");
+                                String nuevoLenguaje = sc.nextLine();
+                                almacen[i].setLenguaje(nuevoLenguaje);
+                            } else {
+                                System.out.println("Este archivo no es de programación. No se puede modificar el lenguaje.");
+                            }
+                            break;
+                        default:
+                            System.out.println("Opción no válida.");
+                            break;
+                    }
+
+                    System.out.println("Archivo modificado correctamente.");
+                    break;  // Salir del bucle una vez que se ha modificado el archivo
+                }
+            }
+
+            if (!encontrado) {
+                System.out.println("Archivo no encontrado con la llave proporcionada.");
+            }
+        } else {
+            System.out.println("No hay archivos registrados aún...");
+        }
     }
 
 }
