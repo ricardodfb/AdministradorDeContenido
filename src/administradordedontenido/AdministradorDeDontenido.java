@@ -47,7 +47,6 @@ public class AdministradorDeDontenido {
                     } else {
                         System.out.println("No se encontro ningun archivo con el ID proporcionado.");
                     }
-                    
                     break;
                 case 4:
                     System.out.print("\nIngresa el ID del archivo que deseas eliminar: ");
