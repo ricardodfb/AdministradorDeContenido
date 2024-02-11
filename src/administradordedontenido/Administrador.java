@@ -77,20 +77,31 @@ public class Administrador {
     
     //PENDIENTEEEE.....................
     public int buscar(int llave){
+        int indiceEncontrado = -1;//Iniciamos el indice en caso de no ser encontrado.
         if (hayArchivos) {
-            System.out.printf("%-5s %-12s %-30s %-10s %-30s %-10s%n", "ID", "TIPO", "NOMBRE", "TAMANO", "PATH", "LENGUAJE");
             for (int i = 0; i < contArchivos; i++) {
                 if(almacen[i].getLlave() == llave){
-                    System.out.printf("%-5s %-12s %-30s %-10s %-30s %-10s%n",
-                        almacen[i].getLlave(), almacen[i].getTipoContenido(), almacen[i].getNombre(),
-                        almacen[i].getSize(), almacen[i].getPath(), almacen[i].getLenguaje());
-                }
+                    indiceEncontrado = i;
+                    break;
+                     }
             }
         } else {
             System.out.println("No hay archivos registrados aún...");
         }
         
-        return llave;
+        return indiceEncontrado;
+    }
+    
+    public void mostrarArchivoIndividual(int indice)
+    {
+        if (indice >= 0 && indice < contArchivos) {
+            System.out.printf("%-5s %-12s %-30s %-10s %-30s %-10s%n", "ID", "TIPO", "NOMBRE", "TAMANO", "PATH", "LENGUAJE");
+            System.out.printf("%-5s %-12s %-30s %-10s %-30s %-10s%n",
+                    almacen[indice].getLlave(), almacen[indice].getTipoContenido(), almacen[indice].getNombre(),
+                    almacen[indice].getSize(), almacen[indice].getPath(), almacen[indice].getLenguaje());
+        } else {
+            System.out.println("El índice del archivo no es válido.");
+        }   
     }
     
     public void eliminarArchivo(int indice) {

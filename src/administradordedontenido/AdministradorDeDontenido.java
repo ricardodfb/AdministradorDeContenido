@@ -40,7 +40,14 @@ public class AdministradorDeDontenido {
                     System.out.print("\nIngresa el ID del archivo que deseas visualizar:");
                     int llave = sc.nextInt();
                     sc.nextLine();
-                    admin.buscar(llave);
+                    int indice = admin.buscar(llave);
+                    if(indice != -1)
+                    {
+                        admin.mostrarArchivoIndividual(indice);
+                    } else {
+                        System.out.println("No se encontro ningun archivo con el ID proporcionado.");
+                    }
+                    
                     break;
                 case 4:
                     System.out.print("\nIngresa el ID del archivo que deseas eliminar: ");
@@ -65,5 +72,4 @@ public class AdministradorDeDontenido {
             }
         }while(op!=0);
     }
-    
 }
