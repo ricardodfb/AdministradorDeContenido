@@ -12,15 +12,20 @@ public class Administrador {
         
         almacen = new Archivo[10];
         for (int i = 0; i < almacen.length; i++) {
-        almacen[i] = new Archivo("", "", 0, "", "", 0);
-    }
+            almacen[i] = new Archivo("", "", 0, "", "", 0);
+        }
     }
     
     public void registrarArchivoX(){
         hayArchivos = true;
-        almacen[0] = new Archivo("imagen", "importante.jpg", 35, "/root", "n/a", 1);
+        almacen[0] = new Archivo("imagen", "vacaciones.jpg", 3, "/home/pictures", "n/a", 1);
         almacen[1] = new Archivo("video", "cars.mp4", 680, "/home", "n/a", 2);
-        almacen[2] = new Archivo("cpp", "main.cpp", 35, "/home/documents", "C++", 3);
+        almacen[2] = new Archivo("programa", "main.cpp", 35, "/home/documents", "C++", 3);
+        almacen[3] = new Archivo("programa", "holaMundo.py", 13, "/documents", "python", 4);
+        almacen[4] = new Archivo("dibujo", "plantaBaja.dwg", 15, "/home/documents", "n/a", 5);
+        almacen[5] = new Archivo("video", "theFlash.mp4", 980, "/videos", "n/a", 6);
+        almacen[6] = new Archivo("imagen", "importante.jpg", 35, "/root", "n/a", 7);
+        contArchivos = 7;
     }
     
     public void registrarArchivo(){
@@ -90,15 +95,13 @@ public class Administrador {
     
     public void eliminarArchivo(int indice) {
         if (hayArchivos && indice >= 0 && indice < contArchivos) {
-            // Desplazar los elementos del array para eliminar el archivo
             for (int i = indice; i < contArchivos - 1; i++) {
                 almacen[i] = almacen[i + 1];
             }
 
             // Asignar null al último elemento para evitar duplicación
             almacen[contArchivos - 1] = null;
-
-            // Decrementar el contador de archivos
+            
             contArchivos--;
 
             System.out.println("Archivo eliminado correctamente.");
@@ -122,7 +125,7 @@ public class Administrador {
                     System.out.print("Selecciona una opción: ");
                     Scanner sc = new Scanner(System.in);
                     int opcion = sc.nextInt();
-                    sc.nextLine(); // Consumir el salto de línea pendiente
+                    sc.nextLine();
 
                     switch (opcion) {
                         case 1:
@@ -139,7 +142,7 @@ public class Administrador {
                             System.out.print("Nuevo Tamaño: ");
                             int nuevoTamano = sc.nextInt();
                             almacen[i].setSize(nuevoTamano);
-                            sc.nextLine(); // Consumir el salto de línea pendiente
+                            sc.nextLine();
                             break;
                         case 4:
                             System.out.print("Nuevo Path: ");
@@ -161,7 +164,7 @@ public class Administrador {
                     }
 
                     System.out.println("Archivo modificado correctamente.");
-                    break;  // Salir del bucle una vez que se ha modificado el archivo
+                    break;
                 }
             }
 
@@ -171,6 +174,24 @@ public class Administrador {
         } else {
             System.out.println("No hay archivos registrados aún...");
         }
+    }
+    
+    public void ordenarArchivos(){
+        Archivo aux;
+        boolean ordenado;
+        do {
+            ordenado = true;
+            for(int i = 0; i < contArchivos - 1; i++) {
+                for(int j = i + 1; j < contArchivos; j++) {
+                    if(almacen[i].getNombre().compareTo(almacen[j].getNombre()) > 0) {
+                        aux = almacen[i];
+                        almacen[i] = almacen[j];
+                        almacen[j] = aux;
+                        ordenado = false;
+                    }
+                }
+            }
+        } while (!ordenado);
     }
 
 }

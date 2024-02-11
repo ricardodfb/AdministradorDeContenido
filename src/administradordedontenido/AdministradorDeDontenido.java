@@ -20,6 +20,7 @@ public class AdministradorDeDontenido {
             System.out.println("3. Buscar archivo por ID.");
             System.out.println("4. Eliminar archivo.");
             System.out.println("5. Modificar archivo.");
+            System.out.println("6. Ordenar por nombres los archivos.");
             System.out.println("0. Salir.");
             System.out.print("Selecciona una opcion: ");
             op = sc.nextInt();
@@ -51,6 +52,13 @@ public class AdministradorDeDontenido {
                     System.out.printf("\nIngresa el ID del archivo que deseas modificar: ");
                     int indiceModificar = sc.nextInt();
                     admin.modificarArchivo(indiceModificar);
+                    break;
+                case 6:
+                    System.out.println("\nOrdenado por nombre de los archivos.");
+                    admin.ordenarArchivos();
+                    break;
+                case 7:
+                    admin.registrarArchivoX();
                     break;
                 default:
                     System.out.println("\nOpcion no valida, vuela a intentarlo...\n");

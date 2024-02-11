@@ -1,0 +1,14 @@
+Métodos corregidos
+
+BUSCAR
+public int buscar(int llave){
+  int index;
+  if(hayArchivos){
+    for(int=0;i<contArchivos;i++){
+      if(almacen[i].getLlave()==llave){
+        index=i;
+      }
+    }
+  }
+  return index;
+}	
